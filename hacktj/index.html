@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+		    Find Bias - Take Action
+	    </title>
+	    
+	    <link rel="icon" href="https://lh4.googleusercontent.com/-Z38JCESyCME/AAAAAAAAAAI/AAAAAAAAAAA/2VkJ-HKF08w/w60-h60-p-mo/photo.jpg">
+	    
+	    <link rel="stylesheet" type="text/css" href="style.css">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    <script src="script.js"></script>
+	    
+    </head>
+    
+    <body>
+        <nav class = "navbar navbar-inverse navbar-static-top bg-inverse"  id = "margin">
+    		<div class = "container-fluid">
+    			<div class = "navbar-header">
+    				<a class = "navbar-brand" id = "name" href = "index.html">Find Bias - Take Action</a>
+    			</div>
+    			<ul class = "nav navbar-nav">
+    				<li id = "tab"><a href="about.html">About Us</a></li>
+    			</ul>	
+    		</div>
+	    </nav>
+	    
+        <div class="jumbotron text-center default-primary-color text-primary-color" id = "header">
+          <h1>Find Bias - Take Action</h1>
+          <p>Use the Slider to Explore Outside Your Political Bubble</p> 
+          <p>When Ready to Contact Your Legislators, Press the "Take Action" Button</p> 
+        </div>
+
+        <div id = "slider">
+            <center>
+                <label for="bar">Spectrum</label>
+                <output for="bar" id="spectrum">Moderate</output>
+            </center>
+            <br><br>
+            <input type="range" min="1" max="5" step="1" id = "bar" value = "3" oninput="outputUpdate(value)"/>
+        </div>
+        
+        <center><h2>Top Headlines</h2></center><br>
+        <div id = "sources" class = "container showContent"></div>
+        <div id = "hiddenSources" class = "container hideContent"></div>
+        <center><button onclick = "showHiddenFunct()" class = button id = "moreButton">Show More</button></center>
+        <br>
+        
+            
+        <center><button onclick = "actionButton()" class = button id = "actionButton">Take Action</button></center>
+        <div id = "other"> 
+            <div id = "hidden_form">
+                <div class="form-group">
+                    <label>Street address:</label>
+                    <input type="text" id="address1" name = "address1" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Zip code:</label>
+                    <input type="text" id="zip5" name = "zip5" class="form-control" required>
+                </div>
+               <input type = "button" class = "button" id = "lawmakers" name = "lawmakers" onclick = "findLegislators()" value = "Find My Lawmakers">
+               <div id = "errorDiv" style="color:#FF0000"></div>
+            </div>
+        </div><br>
+            
+        <div id = "legislators">
+            <center><h2>Your Representatives</h2></center><br>
+            <center><div id = "legSection" class = "container"></div></center>
+        </div>
+             
+        <footer class="footer navbar-inverse" id = "foot">
+    		Created by Ajay Fewell and Will Spencer<br>
+    		Take Action Powered by Phone2Action<br>
+    		Articles Powered by NewsAPI.org
+	    </footer>
+        
+        
+    </body>
+</html>

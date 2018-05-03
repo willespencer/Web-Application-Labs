@@ -1,0 +1,19 @@
+.desc {
+  padding-left:  250px;
+  padding-right: 250px;
+  padding-bottom: 0px;
+}
+
+#margin{
+  margin-bottom:0;
+  padding-bottom:0px;
+}
+#header{
+    padding-bottom: 30px;
+    background-color: #73ddac;
+    margin-bottom: 0px;
+}
+#foot{
+  padding-left:20px;
+  color:#A9A9A9;
+}
