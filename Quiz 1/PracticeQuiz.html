@@ -1,0 +1,77 @@
+<html>
+<head>
+	<title>Practice Quiz</title>
+	<style type="text/css">
+		body{
+			background-color: #A2E4FA
+		}
+		table, th, td{
+			border: 1px solid black;
+			border-collapse: true;
+		}
+		ol{
+			font-size: 23;
+		}
+	</style>
+	<script type="text/javascript">
+		var num1 = 4
+		var num2 = 4
+		function GPAfunct(){
+			var let1 = document.getElementById("quart1").value
+			var let2 = document.getElementById("quart2").value
+			if(let1 == "A")
+				num1 = 4
+			if(let1 == "B")
+				num1 = 3
+			if(let1 == "C")
+				num1 = 2
+			if(let1 == "D")
+				num1 = 1
+			if(let1 == "F")
+				num1 = 0
+			if(let2 == "A")
+				num2 = 4
+			if(let2 == "B")
+				num2 = 3
+			if(let2 == "C")
+				num2 = 2
+			if(let2 == "D")
+				num2 = 1
+			if(let2 == "F")
+				num2 = 0
+			document.getElementById("GPA").innerHTML = ((num1 + num2) / 2)
+		}
+	</script>
+</head>
+<body>
+	<h1>Period 7</h1>
+	<h2>Will Spencer</h2>
+	<table style = "width:100%">
+		<tr>
+			<td>GPA:</td>
+			<td id = "GPA"> 4 </td>
+		</tr>
+		<tr>
+			<td>Quarter 1:</td>
+			<td><select id = "quart1" onchange = "GPAfunct()">
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+				<option>D</option>
+				<option>F</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>Quarter 2:</td>
+			<td><select id = "quart2" onchange = "GPAfunct()">
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+				<option>D</option>
+				<option>F</option>
+			</select></td>
+		</tr>
+	</table>
+
+</body>
+</html>

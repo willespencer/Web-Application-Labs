@@ -1,0 +1,23 @@
+<html>
+<head>
+	<link rel = "icon" href = "http://images.clipartpanda.com/start-clipart-start-button-clipart-1.jpg">
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<title>Presidential Quiz</title>
+	<script src="scriptfile.js"></script>
+</head>
+<body>
+	<center>Name that Presidential Candidate!<br>
+		<button id = "start" type="start" onclick = "startFunct()">Start Game</button><br> 
+		<button id = "pause" type="pause" disabled onclick = "pauseFunct()">Pause Game</button>
+		<button id = "restart" type="restart" disabled onclick = "restartFunct()">Restart Game</button>
+		<div id = "timeLeft">5:00</div>
+		
+		<img src="http://images.clipartpanda.com/start-clipart-start-button-clipart-1.jpg" alt="Candidate Picture" style="width:270px;height:300px;" id = "image"><br>
+		<input id = "answer" type="text" name="answer" autocomplete = "false"autocomplete disabled placeholder = "Last Name Only" oninput="checkCorrect()"><br>
+		<button id = "skip" type="skip" disabled onclick = "skipFunct()">Skip Question</button>
+		<div id = "prog"> Number Correct: 0/21 </div>
+	</center>
+
+
+</body>
+</html>

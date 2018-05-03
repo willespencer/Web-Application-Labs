@@ -1,0 +1,212 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<title>Political Survey</title>
+	<script>
+		function funct(){
+			var list = document.getElementById("select2");
+			while(list.hasChildNodes()){
+				list.removeChild(list.childNodes[0]);
+			}
+			var value = document.getElementById('select').value;
+			if(value == "ideology"){
+				var option = document.createElement("option");
+				option.text = "Liberal";
+				option.value = "lib";
+				list.appendChild(option);
+				var option2 = document.createElement("option");
+				option2.text = "Moderate";
+				option2.value = "mod";
+				list.appendChild(option2);
+				var option3 = document.createElement("option");
+				option3.text = "Conservative";
+				option3.value = "con";
+				list.appendChild(option3);
+			}
+				
+			if(value == "candidate"){
+				var option = document.createElement("option");
+				option.text = "Hillary Clinton";
+				option.value = "clint";
+				list.appendChild(option);
+				var option2 = document.createElement("option");
+				option2.text = "Donald Trump";
+				option2.value = "trump";
+				list.appendChild(option2);
+				var option3 = document.createElement("option");
+				option3.text = "Gary Johnson";
+				option3.value = "john";
+				list.appendChild(option3);
+				var option4 = document.createElement("option");
+				option4.text = "Jill Stein";
+				option4.value = "stein";
+				list.appendChild(option4);
+			}
+			if(value == "issue"){
+				var option = document.createElement("option");
+				option.text = "Immigration";
+				option.value = "imm";
+				list.appendChild(option);
+				var option2 = document.createElement("option");
+				option2.text = "Foreign Policy";
+				option2.value = "for";
+				list.appendChild(option2);
+				var option3 = document.createElement("option");
+				option3.text = "Healthcare";
+				option3.value = "care";
+				list.appendChild(option3);
+				var option4 = document.createElement("option");
+				option4.text = "Social Issues";
+				option4.value = "social";
+				list.appendChild(option4);
+				var option5 = document.createElement("option");
+				option5.text = "Economy";
+				option5.value = "econ";
+				list.appendChild(option5);
+				var option6 = document.createElement("option");
+				option6.text = "Environment/Science Issues";
+				option6.value = "science";
+				list.appendChild(option6);
+				var option7 = document.createElement("option");
+				option7.text = "Education";
+				option7.value = "educ";
+				list.appendChild(option7);
+			}
+			if(value == "leader"){
+				var option = document.createElement("option");
+				option.text = "Kind";
+				option.value = "kind";
+				list.appendChild(option);
+				var option2 = document.createElement("option");
+				option2.text = "Honest";
+				option2.value = "honest";
+				list.appendChild(option2);
+				var option3 = document.createElement("option");
+				option3.text = "Trustworthy";
+				option3.value = "trust";
+				list.appendChild(option3);
+				var option4 = document.createElement("option");
+				option4.text = "Confident";
+				option4.value = "confi";
+				list.appendChild(option4);
+				var option5 = document.createElement("option");
+				option5.text = "Opinionated";
+				option5.value = "op";
+				list.appendChild(option5);
+				var option6 = document.createElement("option");
+				option6.text = "Strong/Powerful";
+				option6.value = "stron";
+				list.appendChild(option6);
+			}
+			var key= document.getElementById("select")
+			if(key.hasAttribute("size")){
+				if(value == "ideology"){
+					list.setAttribute("size", "3")
+				}
+					
+				if(value == "candidate"){
+					list.setAttribute("size", "4")
+				}
+					
+				if(value == "issue"){
+					list.setAttribute("size", "7")
+				}
+					
+				if(value == "leader"){
+					list.setAttribute("size", "6")
+				}
+
+				
+			}
+				
+		}
+		function fullList(){
+			var list1= document.getElementById("select")
+			var list2 = document.getElementById("select2")
+			if(list1.hasAttribute("size")){
+				list1.removeAttribute("size")
+				list2.removeAttribute("size")
+			}
+			else{
+				list1.setAttribute("size", "4")
+				var value = document.getElementById('select').value;
+				if(value == "ideology"){
+					list2.setAttribute("size", "3")
+				}
+					
+				if(value == "candidate"){
+					list2.setAttribute("size", "4")
+				}
+					
+				if(value == "issue"){
+					list2.setAttribute("size", "7")
+				}
+					
+				if(value == "leader"){
+					list2.setAttribute("size", "6")
+				}
+					
+			}
+		}
+	</script>
+</head>
+<body>
+	<center>Political Opinions Survey</center>
+	<a href="C:\Users\wille\Documents\Web App\Course Index.html" id = "hyper">Return to homepage</a>
+	<form>
+
+		Current Date:<br>
+		<input type="date" name="datename" class = "question" required autofocus>
+
+		<br><br><fieldset>
+			<legend>Personal Information</legend>
+			
+			Name:<br>
+			<input type="text" name="username" class = "question" required autocomplete placeholder = "First_Name Last_Name"><br>
+
+			City:<br>
+			<input type="text" name="cityname" class = "question" required autocomplete><br>
+
+			State:<br>
+			<input type="text" name="statename" class = "question" placeholder = "VA"required autocomplete><br>
+
+			Zip:<br>
+			<input type="text" name="zipname" class = "question" required autocomplete><br>
+
+			Email:<br>
+			<input type="email" name="emailname" class = "question" placeholder = "example@host.com" required autocomplete><br>
+
+		</fieldset>
+		<br><br>
+		
+		Political Opinions
+		<fieldset>
+			<input type="radio" name = "list" value = "Dropdown" onclick = "dropList()"checked onchange = fullList()> Dropdown List <br>
+			<input type = "radio" name = "list" value = "FullList" onclick = "fullList()"> View Full List<br>
+			<br>
+			
+			<select name="select" id = "select" onchange = "funct()">
+  			<option value="ideology" id = "ideology" selected>Political Ideology?</option> 
+  			<option value="candidate" id = "candidate" >Prefered Presidential Candidate?</option>
+  			<option value="issue" id = "issue" >Most Important Issue?</option>
+  			<option value="leader" id = "leader" >Most Important Leadership Quality?</option>
+
+		</select><br>
+		<select name="select2" id = "select2">
+  			<option value="lib">Liberal</option> 
+  			<option value="mod">Moderate</option>
+  			<option value="con">Conservative</option>
+		</select><br>
+		</fieldset>
+		
+
+		<br>
+		Additional Comments:<br>
+		<textarea rows="6" cols = "50", id = "comment" class = "question" name = "comments"></textarea>
+
+		<br><br>
+		<input type="submit">
+		
+	</form>
+</body>
+</html>

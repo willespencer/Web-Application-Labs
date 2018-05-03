@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Officer Login</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            function sendRequest(){
+			    var xhttp = new XMLHttpRequest();
+			    var user = document.getElementById("user").value;
+			    var pass = document.getElementById("pass").value;
+			    var error = document.getElementById("notFound");
+  			    xhttp.onreadystatechange = function() {
+    			    if (this.readyState == 4 && this.status == 200) {
+     				    var num = this.responseText;
+     				    console.log(num)
+     				    //Login Availible
+     				    if(num == 1){
+     				        console.log("exists")
+     				        window.location.replace("admin.html");
+     				    }
+     				    else if(num == 2){
+     				        console.log("exists")
+     				        window.location.replace("update.html");
+     				    }
+     				    else{ 
+     				        error.innerHTML = "Username or Password is Incorrect"; //Login does not exist
+     				        error.style.color = "Red";
+     				    }
+    			    }
+  			    }
+  			    var string = "index.php?user=" + user + "&pass=" + pass;
+  			    xhttp.open("GET", string, true);
+  			    xhttp.send();
+            }
+        </script>
+        <link rel="stylesheet" type="text/css" href="login.css">
+    </head>
+    <body>
+        <div class="jumbotron text-center default-primary-color text-primary-color">
+          <h1>Officer Login</h1>
+          <p>Access Information for your Club!</p> 
+        </div>
+        
+        <div class="form-group" id = "lgn">
+            <label for="user">TJ Username:</label> <!--regular expression maybe?-->
+            <input type="text" class="form-control" id="user"><br>
+            <label for="pass">Password:</label>
+            <input type="password" class="form-control" id="pass"><br>
+            <center><button class="btn btn-success" onclick="sendRequest()">Login</button><br><br>
+            <center><div id = "notFound"></div></center><br>
+            <button type="button" class="btn btn-link"><a href="register.html">Need an Officer/Member Account? Click Here!</a> </button>
+        </div>
+        
+    </body>
+</html>

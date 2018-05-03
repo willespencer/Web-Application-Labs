@@ -1,0 +1,27 @@
+body{
+	background-color:black;
+	}
+h1{
+	font-size: 40;
+	font-style: bold;
+	color: white;
+	text-align: center;
+	}
+h2{
+	color: white;
+	font-size: 20
+}
+.pic
+{
+	border: white 2px solid;
+	margin:8px;
+	border-left-color: black;
+	border-right-color: black;
+
+}
+#facebook{
+	color: white;
+	font-family: "Times New Roman", sans-serif;
+	font-style: italic;
+	font-size: 20
+}

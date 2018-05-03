@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>My sweeeeet server</title>
+	<script type="text/javascript">
+		window.onload= function(){
+			document.getElementById("sendQuery").onclick = whenClicked;
+
+		}
+		function whenClicked(){
+			var string = document.getElementById("queryInput").value;
+			var xhttp = new XMLHttpRequest();
+  			xhttp.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+     				console.log(this.responseText);
+    			}
+  			}
+  			xhttp.open("GET", "https://tmrudwick-web.herokuapp.com/SearchQuery/search.php?query=" + string, true);
+  			xhttp.send();
+		}
+	</script>
+</head>
+<body>
+	<input id = "queryInput">
+	<button id = "sendQuery">Send AJAX Request</button>
+</body>
+</html>

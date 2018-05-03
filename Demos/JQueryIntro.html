@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>JQuery Intro</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("div").css("border", "2px green solid"); /*grabs every single div tag*/
+			$("div").click(function(){
+				console.log(this); /*grabs this as javascript object*/
+				$(this).fadeOut(); /*grabs this as jquery */
+			})
+			$(".p7").each(function(){ /*.each() runs program on each one*/
+				$(this).html("This is a div tah with ID:" + $(this).attr("id"));
+			}); 
+		});
+	</script>
+</head>
+<body>
+	<div id = "a">askdjgf</div>
+	<div class = "p7" id = "b">askdjgf</div>
+	<div class = "p7" id = "c">askdjgf</div>
+	<div class = "p7" id = "d">askdjgf</div>
+	<div id = "e">askdjgf</div>
+	<div id = "f">askdjgf</div>
+</body>
+</html>

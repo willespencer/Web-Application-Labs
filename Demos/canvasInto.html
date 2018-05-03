@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>Canvas Project</title>
+	<style type="text/css">
+		canvas{
+			border:1px black dashed;
+		}
+	</style>
+	<script type="text/javascript">
+		var canvas;
+		var ctx;
+		window.onload = function(){
+			canvas = document.getElementById("can")
+			ctx = canvas.getContext("2d");
+			canvas.addEventListener("mousedown", 
+				function(evt){
+					clicked(evt)
+			});
+		}
+		function clicked(evt){
+			console.log(evt);
+			ctx.rect(evt.layerX, evt.layerY,10,10);
+			ctx.stroke();
+		}
+	</script>
+</head>
+<body>
+	<canvas id = "can" width = "600" height = "400"></canvas>
+</body>
+</html>

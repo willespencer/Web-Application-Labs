@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>Math</title>
+	<script>
+		function doMath(){
+			var num1 = document.getElementById("firstNum").value;
+			var num2 = document.getElementById("secondNum").value;
+			// console.log(num1)
+			var dividend = num1/num2;
+			/*console.log(dividend);*/
+			document.getElementById("divtag").innerHTML = dividend
+
+		}
+	</script>
+</head>
+<body>
+	<input id = "firstNum">
+	<input id = "secondNum">
+	<button onclick="doMath()">Click Me to do Math!</button>
+	<div id = "divtag"></div>
+</body>
+</html>

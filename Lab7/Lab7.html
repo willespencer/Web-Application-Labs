@@ -1,0 +1,350 @@
+<html>
+<head>
+	<title>Lab7</title>
+	<style type="text/css">
+		canvas{
+			border:1px black dashed;
+		}
+	</style>
+	<script type="text/javascript">
+		var controlPressed = false
+		found = false
+		var foundDotIndex = -1
+		var mouseIsDown = false
+		var canvas;
+		endX = endY = startX = startY = 0
+		var ctx;
+		var dots=[];
+		var edgeList = [];
+		window.onkeydown = function(e){
+			if(e.key == "Control")
+				controlPressed = true
+			if(e.key == "e")
+				createEdges()
+			if(e.key == "c")
+				clearEdges()
+			if(e.keyCode == 46) //Delete key
+				deleteSelected()
+			if(e.key == "t")
+				toggleFunct()
+			if(e.keyCode == 27) //Escape Key - Unselects stuff
+				reDraw()
+			if(e.keyCode == 37) //left
+				leftArrow()
+			if(e.keyCode == 38) //up
+				upArrow()
+			if(e.keyCode == 39) //right
+				rightArrow()
+			if(e.keyCode == 40) //down
+				downArrow()
+		}
+		window.onkeyup = function(e){
+			if(e.key == "Control"){
+				controlPressed = false
+			}
+		}
+		window.onload = function(){
+			canvas = document.getElementById("can")
+			ctx = canvas.getContext("2d");
+			canvas.addEventListener("mousedown", 
+				function(evt){
+					mouseIsDown = true
+					mouseDown(evt)
+			});
+			canvas.addEventListener("mouseup",
+				function(evt){
+					mouseUp(evt)
+					mouseIsDown = false
+					if(found == true){
+						foundDotIndex = -1
+						found = false
+					}
+					else if(endX == startX && endY == startY)
+						clicked(evt)
+					else
+						selectDots(endX, endY)
+					controlPressed = true
+					reDraw()
+					controlPressed = false
+			});
+			canvas.addEventListener("mousemove",
+				function(evt){
+					mouseMove(evt)
+			});
+		}
+		function upArrow(){
+			for(x = 0; x < dots.length; x++){
+				if(dots[x].selected == true){
+					dots[x].yPos = dots[x].yPos - 5
+				}
+			}
+			temp = controlPressed
+			controlPressed = true
+			reDraw()
+			controlPressed = temp
+		}
+		function downArrow(){
+			for(x = 0; x < dots.length; x++){
+				if(dots[x].selected == true){
+					dots[x].yPos = dots[x].yPos + 5
+				}
+			}
+			temp = controlPressed
+			controlPressed = true
+			reDraw()
+			controlPressed = temp
+
+		}
+		function leftArrow(){
+			for(x = 0; x < dots.length; x++){
+				if(dots[x].selected == true){
+					dots[x].xPos = dots[x].xPos - 5
+				}
+			}
+			temp = controlPressed
+			controlPressed = true
+			reDraw()
+			controlPressed = temp
+		}
+		function rightArrow(){
+			for(x = 0; x < dots.length; x++){
+				if(dots[x].selected == true){
+					dots[x].xPos = dots[x].xPos + 5
+				}
+			}
+			temp = controlPressed
+			controlPressed = true
+			reDraw()
+			controlPressed = temp
+		}
+		function removeSelectedEdges(dot){
+			for(y = 0; y < edgeList.length; y++){
+				edge = edgeList[y]
+				if((dot.xPos == edge.xFirst || dot.xPos == edge.xLast) && (dot.yPos == edge.yFirst || dot.yPos == edge.yLast)){
+
+					edgeList.splice(y, 1)
+					y = y - 1
+				}
+			}		
+		}
+		function toggleFunct(){
+			foundIndex = -1
+			found = false
+			for(x = 0; x < dots.length; x++){
+				for(y = x; y < dots.length; y++){
+					if(dots[x].selected == true && dots[y].selected == true){
+						for(z = 0; z < edgeList.length; z++){
+							if(edgeList[z].xFirst == dots[x].xPos && edgeList[z].xLast == dots[y].xPos && edgeList[z].yFirst == dots[x].yPos && edgeList[z].yLast == dots[y].yPos){
+								found = true
+								foundIndex = z
+							}
+						}
+						if(found == true){
+							edgeList.splice(foundIndex, 1)
+						}
+						else{
+							ctx.beginPath()
+							ctx.moveTo(dots[x].xPos, dots[x].yPos)
+							ctx.lineTo(dots[y].xPos, dots[y].yPos)
+							ctx.stroke()
+							var edge = {xFirst:dots[x].xPos, yFirst:dots[x].yPos, xLast:dots[y].xPos, yLast: dots[y].yPos}
+							edgeList.push(edge)
+						}
+						found = false
+					}
+				}
+			}
+			reDraw()
+		}
+
+		function createEdges(){
+			for(x = 0; x < dots.length; x++){
+				if(dots[x].selected == true){
+					for(y = x; y < dots.length; y++){
+						if(dots[y].selected == true){
+
+							ctx.beginPath()
+							ctx.moveTo(dots[x].xPos, dots[x].yPos)
+							ctx.lineTo(dots[y].xPos, dots[y].yPos)
+							ctx.stroke()
+							var edge = {xFirst:dots[x].xPos, yFirst:dots[x].yPos, xLast:dots[y].xPos, yLast: dots[y].yPos}
+							edgeList.push(edge)
+						}
+
+					}
+				}
+
+			}
+
+		}
+		function clearEdges(){
+			ctx.clearRect(0, 0, canvas.width, canvas.height)
+			for (var x = 0; x < dots.length; x++){
+				if(dots[x].selected == true){
+					ctx.strokeStyle="red";
+					removeSelectedEdges(dots[x])
+						
+				}
+				else
+					ctx.strokeStyle="black";
+				ctx.beginPath();
+				ctx.arc(dots[x].xPos, dots[x].yPos, dots[x].rad, 0, 2*Math.PI);
+				ctx.stroke()
+			}
+			ctx.strokeStyle = "black"
+			for(x = 0; x < edgeList.length; x++){
+				edge = edgeList[x]
+				ctx.beginPath()
+				ctx.moveTo(edge.xFirst, edge.yFirst)
+				ctx.lineTo(edge.xLast, edge.yLast)
+				ctx.stroke()
+			}
+		}
+		function deleteSelected(){
+			index = 0
+			for(x = 0; x < dots.length; x++){
+				if(dots[x].selected == true){
+					removeSelectedEdges(dots[x])
+
+					dots.splice(x, 1);
+					x = x - 1;
+				}
+			}
+			reDraw()
+		}
+		function clicked(evt){
+			rad = 10
+			foundDot = false
+			index = 0
+			for(dex = 0; dex < dots.length; dex++){
+				x = dots[dex].xPos
+				y = dots[dex].yPos
+				if(evt.layerX < x + rad && evt.layerX > x-rad && evt.layerY < y + rad && evt.layerY > y-rad){
+					foundDot = true
+					index = dex
+				}
+			}
+			if(foundDot == false){
+				reDraw() //Needed to get rid of selected objects when canvas clicked
+				var currRect = {xPos:evt.layerX, yPos:evt.layerY, rad:rad, selected:true}
+				dots.push(currRect);
+				
+			}
+			else{
+				dots[index].selected = true
+				ctx.strokeStyle="red";
+				xVal = dots[index].xPos
+				yVal = dots[index].yPos
+				rad = dots[index].rad
+				ctx.beginPath();
+				ctx.arc(xVal, yVal, rad, 0, 2*Math.PI);
+				ctx.stroke()
+				ctx.strokeStyle="black";
+			}
+		}
+		function mouseDown(evt){
+    		startX = evt.layerX;
+    		startY = evt.layerY;
+		}
+		function mouseUp(evt){
+		    endX = evt.layerX;
+		    endY = evt.layerY;
+		}
+		/*if(endX> dots[i].xPos > startX && endY > dots[i].yPos > startY)*/
+		function clearFunct(){
+			ctx.clearRect(0, 0, canvas.width, canvas.height)
+			dots = []
+			edgeList = []
+		}
+		function inBox(dot, valX, valY){
+			if((dot.xPos < startX && dot.xPos > valX) || (dot.xPos > startX && dot.xPos < valX))
+				if((dot.yPos > startY && dot.yPos < valY) || (dot.yPos < startY && dot.yPos > valY))
+					return true
+			return false
+		}
+		function reDraw(){
+			ctx.clearRect(0, 0, canvas.width, canvas.height)
+			for (var x = 0; x < dots.length; x++){
+				if(dots[x].selected == true && controlPressed == true)
+					ctx.strokeStyle="red";
+				else{
+					ctx.strokeStyle="black";
+					dots[x].selected = false
+				}
+				ctx.beginPath();
+				ctx.arc(dots[x].xPos, dots[x].yPos, dots[x].rad, 0, 2*Math.PI);
+				ctx.stroke()
+			}
+			ctx.strokeStyle = "black"
+			for(x = 0; x < edgeList.length; x++){
+				edge = edgeList[x]
+				ctx.beginPath()
+				ctx.moveTo(edge.xFirst, edge.yFirst)
+				ctx.lineTo(edge.xLast, edge.yLast)
+				ctx.stroke()
+			}
+		}
+		function selectDots(valX, valY){
+			ctx.strokeStyle="red";
+			ctx.rect(startX, startY, valX-startX, valY-startY);
+			ctx.stroke();
+			ctx.strokeStyle="black";
+			for (var i = 0; i < dots.length; i++) {
+				if(inBox(dots[i], valX, valY)){
+					ctx.strokeStyle="red";
+					xVal = dots[i].xPos
+					yVal = dots[i].yPos
+					rad = dots[i].rad
+					ctx.beginPath();
+					ctx.arc(xVal, yVal, rad, 0, 2*Math.PI);
+					ctx.stroke()
+					ctx.strokeStyle="black";
+					dots[i].selected = true
+				}
+			}
+		}
+		function mouseMove(evt){
+			if (mouseIsDown == true && foundDotIndex == -1) {
+				for(x = 0; x < dots.length; x++){ //finds dot within
+					if(canDrag(dots[x])){
+						found = true
+						foundDotIndex = x
+						break;
+						
+					}
+				}
+				if (found == false){  //if no dot, must make a square!
+					reDraw()
+					selectDots(evt.layerX, evt.layerY)
+					endX = evt.layerX
+					endY = evt.layerY
+				}
+			};
+			if(found == true && mouseIsDown == true){
+				controlPressed = true
+				dots[foundDotIndex].selected=true
+				dots[foundDotIndex].xPos = evt.layerX
+				dots[foundDotIndex].yPos = evt.layerY
+				reDraw()
+				controlPressed= false
+			}
+
+		}
+		function canDrag(dot){
+			rad = dot.rad * 2
+			if(dot.xPos+rad > startX && dot.xPos-rad < startX && dot.yPos+rad > startY && dot.yPos-rad < startY){
+				return true
+			}
+			return false
+		}
+
+	</script>
+</head>
+<body>
+	<center>
+
+	</center>
+	<canvas id = "can" width = "600" height = "400"></canvas><br>
+	<button onclick = "clearFunct()">Clear Canvas</button>
+</body>
+</html>

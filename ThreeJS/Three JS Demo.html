@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Three JS Demo</title>
+</head>
+<body>
+	<script type="text/javascript" src = "three.min.js"></script>
+	<script type="text/javascript">
+		//create renderer
+		var renderer = new THREE.WebGLRenderer({ antialias: true}); //instantiates HTML Element
+		renderer.setSize(window.innerWidth, window.innerHeight); //Size of screen
+		document.body.appendChild(renderer.domElement); //Adds to screen
+		//add scene and camera
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
+		camera.position.x = 0;
+		camera.position.y = 0;
+		camera.position.z = 0;
+		camera.lookAt({x:10, y:10, z:10});
+		scene.add(camera); //Adds camera to the scene
+		//add some shapes
+	/*	for(var x = 0; x < 10; x++){*/
+			var cG = new THREE.CubeGeometry(3,3,3)
+			var mL = new THREE.MeshLambertMaterial({color: 0xFF0000})
+			var cube = new THREE.Mesh(cG, mL); //Mesh is (type of object, made of)
+			cube.position.x = 10;
+			cube.position.y = 10;
+			cube.position.z = 10;
+			scene.add(cube);
+		/*}*/
+		//add some light
+		scene.add(new THREE.AmbientLight(0xFFFFFF));
+		//write the renderer function
+		function render(){
+			requestAnimationFrame(render); //Lets us call a render
+			renderer.render(scene, camera); //Renders using scene and camera
+		}
+		//Spotlight thing
+		var spotLight = new THREE.SpotLight( 0xFFFFFF );
+		spotLight.position.set( 10, 10, 10);
+		spotLight.castShadow = true;
+		scene.add( spotLight );
+
+		//render
+		render()
+	</script>
+
+</body>
+</html>

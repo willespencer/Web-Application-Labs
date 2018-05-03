@@ -1,0 +1,15 @@
+body{
+	font-size: 22;
+	background-color: rgb(255, 128, 0)
+}
+h1{
+	font-size: 50;
+	font-style: "Times New Roman";
+	font-family: "Arial Black", "Gadget", "sans-serif";
+	color: white;
+}
+table{
+	font-size: 22;
+	border: 2px solid black;
+	color: rgb(255, 128, 0);
+}

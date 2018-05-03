@@ -1,0 +1,19 @@
+<html>
+<head>
+	<title>Timer Example</title>
+	<script type="text/javascript">
+		window.onload= function(){
+			console.log(document.getElementById("timeLeft").innerHTML);	
+			window.setInterval(countDown, 1000);
+		}
+		function countDown(){
+			var timer = document.getElementById("timeLeft").innerHTML;
+			if(timer != 0)
+				document.getElementById("timeLeft").innerHTML = timer - 1;
+		}
+	</script>
+</head>
+<body>
+	<div id = "timeLeft">10</div>
+</body>
+</html>

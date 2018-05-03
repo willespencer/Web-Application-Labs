@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Weather App Using AJAX</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		function sendRequest(){
+			var urlToGoTo = "http://api.openweathermap.org/data/2.5/weather";
+			console.log(urlToGoTo)
+			$.ajax({
+				url: urlToGoTo, 
+				success: function(response){
+	        		console.log(response);
+	        		var temp = response.main.temp
+	        		temp -= 273;
+	        		temp *= 9/5
+	        		temp += 32
+	        		$("#output").html(temp)
+	        		var rise = response.sys.sunrise;
+	        		var set = response.sys.sunset;
+	        		var sunrise = new Date(rise * 1000);
+	        		var sunset = new Date(set * 1000);
+	        		$("#sunrise").html(sunrise.getHours() + ":" + sunrise.getSeconds() + "AM");
+	        		$("#sunset").html(sunset.getHours()-12 + ":" + sunset.getSeconds() +"PM");
+	        	},
+	        	data:{
+	        		zip:$("#zip").val()+",us",
+	        		appid:"b86bea000ba12922cc9d5ffd68f0147c"
+	        	}
+	        })
+		}
+	</script>
+</head>
+<body>
+	<input id = "zip">
+	<button id = "clicker" onclick = "sendRequest()">Send Request</button><br>
+	Current Temperature: <div id = "output"></div>
+	Sunrise Time: <div id = "sunrise"></div>
+	Sunset Time: <div id = "sunset"></div>
+</body>
+</html>

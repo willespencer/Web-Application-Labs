@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register Account</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="register.css">
+        <script type="text/javascript">
+            var time = 0
+            function onClick(){
+                time = time + 1
+                if(time % 2 == 0)
+                    document.getElementById("yesradio").value = "off";
+                else
+                    document.getElementById("yesradio").value = "on";
+            }
+            function verify() {
+                var name = document.getElementById("name").value;
+                var tj=document.getElementById("tj").value;
+                var pswd=document.getElementById("pswd").value;
+                var fcps=document.getElementById("fcps").value;
+                var email=document.getElementById("email").value;
+                var yesradio = document.getElementById("yesradio").value;
+
+                var xhttp = new XMLHttpRequest();
+  			    xhttp.onreadystatechange = function() {
+    			    if (this.readyState == 4 && this.status == 200) {
+     				    var num = this.responseText;
+     				    var output = document.getElementById("output")
+     				    output.innerHTML = "Successfully registered!"
+     				    
+     				    document.getElementById('name').value = "";
+                        document.getElementById('tj').value = "";
+                        document.getElementById('pswd').value = "";
+                        document.getElementById('fcps').value = "";
+                        document.getElementById('email').value = "";
+                        document.getElementById("yesradio").checked = false;
+                        time = 0
+    			    }
+  			    }
+  			    var string = "register.php?name=" + name + "&tj=" + tj + "&pswd=" + pswd + "&fcps=" + fcps + "&email=" + email + "&yesradio=" + yesradio;
+  			    xhttp.open("GET", string, true);
+  			    xhttp.send();
+            }
+        </script>
+    </head>
+    <body>
+        <div class="jumbotron text-center default-primary-color text-primary-color">
+          <h1>Register here</h1>
+          <p>Only do this if you don't have an account!</p> 
+        </div>
+        <form action="register.php" method="post">
+            <div class="form-group" id="reg">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required><br>
+                <label for="tj">TJ Username:</label>
+                <input type="text" class="form-control" id="tj" name="tj" required><br>
+                <label for="pswd">Password:</label>
+                <input type="password" class="form-control" id="pswd" name = "pswd" required><br>
+                <label for="fcps">FCPS ID:</label>
+                <input type="text" class="form-control" id="fcps" name = "fcps" required><br>
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name = "email" required><br>
+                
+               <div class="radio">
+                  <label><input type="checkbox" name="yesradio" id="yesradio" value = "off" onclick = "onClick()">  Click here if you are an Officer</label>
+                </div>
+                
+                <center><button type="button" class="btn btn-success" onclick="verify()">Register</a></button></center>
+                <!--<center><input type="submit" class="btn btn-success"><br><br></center>-->
+                <center><div id = "output"></div></center><br>
+                <button type="button" class="btn btn-link"><a href="index.html">Go back to login</a></button>
+            </div>
+         </form>
+    </body>
+</html>

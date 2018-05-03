@@ -1,0 +1,65 @@
+<html>
+<head>
+	<link rel = "icon" href = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png">
+	<title>Google</title>
+	<script type="text/javascript">
+		var intev;
+		/*window.onload= function(){
+			document.getElementById("sendQuery").onclick = whenClicked;
+
+		}*/
+		function whenClicked(){
+			
+			var string = document.getElementById("queryInput").value;
+			var xhttp = new XMLHttpRequest();
+			var input;
+			var searched = document.getElementById("searchText").innerHTML;
+  			xhttp.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+    				var array= this.responseText.split(" ");
+    				input = array[1];
+    				for(i = 2; i < 9; i++){
+    					if(array.length > i){
+    						input += array[i];
+    						input += " ";
+    					}	
+    				}
+    				if(input != undefined){
+    					definition(string);
+    					document.getElementById("searchText").innerHTML = searched + string + ", ";
+    					document.getElementById("text").innerHTML = "First 8 Words: " + input;
+
+    				}
+    				else{
+    					document.getElementById("text").innerHTML = "No Words Found";
+    				}
+       			}	
+    		}
+  			xhttp.open("GET", "https://tmrudwick-web.herokuapp.com/SearchQuery/search.php?query=" + string, true);
+  			xhttp.send();
+		}
+		function whenTyped(){
+			window.clearTimeout(intev);
+			intev= window.setTimeout("whenClicked()", 1000);
+		}
+		function definition(string){
+			var xhttp = new XMLHttpRequest();
+  			xhttp.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+     				console.log(this.responseText);
+    			}
+  			}
+  			xhttp.open("GET", "http://www.dictionary.com/browse/" + string, true);
+  			xhttp.send();
+		}
+	</script>
+</head>
+<body>
+	<center><img src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_284x96dp.png" alt="Google Logo"><br>
+	
+	<input id = "queryInput" oninput = "whenTyped()"><br>
+	<!-- <button id = "sendQuery">Send AJAX Request</button> -->
+	<div id = "text"></div>
+	<div id = "searchText">Words Searched: </div></center>
+</body>
+</html>

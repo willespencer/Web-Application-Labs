@@ -1,0 +1,37 @@
+<html>
+<head>
+	<link rel = "icon" href = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png">
+	<title>Google</title>
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+
+		var intev;
+
+		function whenClicked(){
+			
+			var string = $("#queryInput").value;
+			var xhttp = new XMLHttpRequest();
+			var input;
+			var searched = $("#searchText").html();
+
+      $.ajax({url: "https://tmrudwick-web.herokuapp.com/SearchQuery/search.php?query=" + string, success: function(result){
+        $("#text").html(result);
+  		
+    		}});
+		});
+    $("#queryInput").change(function(){
+      console.log("test");
+      window.clearTimeout(intev);
+      intev= window.setTimeout("whenClicked()", 1000);
+    });
+		
+	</script>
+</head>
+<body>
+	<center><img src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_284x96dp.png" alt="Google Logo"><br>
+	
+	<input id = "queryInput"><br>
+	<div id = "text"></div>
+	<div id = "searchText">Words Searched: </div></center>
+</body>
+</html>
